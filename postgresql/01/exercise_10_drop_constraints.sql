@@ -1,0 +1,2 @@
+ALTER TABLE IF EXISTS minions_info
+ALTER COLUMN equipped DROP NOT NULL;

@@ -1,0 +1,2 @@
+ALTER TABLE IF EXISTS minions_info
+DROP COLUMN age;

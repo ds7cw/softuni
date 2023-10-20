@@ -1,0 +1,8 @@
+ALTER TABLE IF EXISTS minions_info
+ADD COLUMN code CHAR(4);
+
+ALTER TABLE IF EXISTS minions_info
+ADD COLUMN task TEXT;
+
+ALTER TABLE IF EXISTS minions_info
+ADD COLUMN salary NUMERIC(8,3);

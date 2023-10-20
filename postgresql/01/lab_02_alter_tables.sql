@@ -1,0 +1,2 @@
+ALTER TABLE IF EXISTS employees
+ADD COLUMN middle_name VARCHAR(50);
