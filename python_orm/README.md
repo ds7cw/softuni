@@ -447,7 +447,7 @@ class Employee(models.Model):
 	    )
 	~~~
  
- - Custom Validators - функции, които често пишем в отделен файл. При грешка raise-ваме ValidationError
+ - **Custom Validators** - функции, които често пишем в отделен файл. При грешка raise-ваме **ValidationError**
 
 ### 2. Meta Options and Meta Inheritance
 - В мета класа можем да променяме:
@@ -492,7 +492,7 @@ class Employee(models.Model):
 ### 3. Indexing
 - Индексирането ни помага, подреждайки елементите в определен ред или създавайки друга структура, чрез, която да търсим по-бързо.
 - Бързо взимаме записи, но ги запазваме по-бавно
-- В Django можем да сложим индекс на поле, като добавим key-word аргумента db_index=True
+- В **Django** можем да сложим индекс на поле, като добавим **key-word** аргумента `db_index=True`
 - Можем да направим и индекс, чрез мета класа, като можем да правим и композитен индекс
 <br><br>
 	~~~python
@@ -515,3 +515,79 @@ class Employee(models.Model):
 	    	    abstract = True
 	~~~
  ---
+## Advanced Django Queries
+### 1. Custom managers
+- Използваме ги, за да изнсем бизнез логиката, за често използвани заявки на едно място
+- Правим го наследявайки мениджъра по подразбиране.
+	~~~python
+	  class BookManager(models.Manager):
+	        def average_rating(self):
+	            # Calculate the average rating of all books
+	            return self.aggregate(avg_rating=models.Avg('rating'))['avg_rating']
+	
+	        def highest_rated_book(self):
+	            # Get the highest-rated book
+	            return self.order_by('-rating').first()
+	~~~
+ 
+### 2. Annotations and Aggregations
+- Анотации - използваме ги, за да добавяме нови полета във върнатия резултат, често на база някакви изчисления. Връща **QuerySet**.
+- Пример:
+  ~~~python
+	# Annotating the queryset to get the count of books for each author
+	authors_with_book_count = Book.objects.values('author').annotate(book_count=Count('id'))
+  ~~~
+- Агрегации - връщат едно поле(една стойност), често резултат от агрегиращи функции. Връща dict
+	~~~python
+	# Annotating the queryset to get the average rating of all books
+	average_rating = Book.objects.aggregate(avg_rating=Avg('rating'))
+	~~~
+
+### 3. select_related & prefetch_related
+- `select_related` - редуцира броя на заявките при **One-To-One** и **Many-To-One** заявки
+вместо lazily да взимаме свързаните обекти правим **JOIN** още при първата заявка
+- Пример:
+	~~~python
+	from django.db import models
+	
+	class Author(models.Model):
+	    name = models.CharField(max_length=100)
+	
+	class Book(models.Model):
+	    title = models.CharField(max_length=100)
+	    author = models.OneToOneField(Author, on_delete=models.CASCADE)
+	
+	books_with_authors = Book.objects.select_related('author') 
+	# SELECT * FROM "myapp_book" JOIN "myapp_author" ON ("myapp_book"."author_id" = "myapp_author"."id")
+	~~~
+- `prefetch_related` - редуцира броя на заявките при **Many-To-Many** (не само) до броя на релациите + 1
+- Пример:
+	~~~python
+	class Author(models.Model):
+	    name = models.CharField(max_length=100)
+	
+	class Book(models.Model):
+	    title = models.CharField(max_length=100)
+	    authors = models.ManyToManyField(Author)
+	
+	authors_with_books = Author.objects.prefetch_related('book_set')
+	
+	# 1. SELECT * FROM "myapp_author"
+	# 2. SELECT * FROM "myapp_book" INNER JOIN "myapp_book_authors" ON ("myapp_book"."id" = "myapp_book_authors"."book_id")
+	~~~
+
+### 4. Q and F
+- Използваме **Q object**, за да правим заявки изискващи по-сложни условия
+- Пример:
+	~~~python
+	q = Q(title__icontains='Django') & (Q(pub_year__gt=2010) | Q(author='John Doe'))
+	
+	books = Book.objects.filter(q)
+	~~~
+- Използваме **F object**, за да достъпваме, стойностите през, които итерираме на ниво **SQL**
+	~~~python
+	from django.db.models import F
+	
+	Book.objects.update(rating=F('rating') + 1)
+	~~~
+---
