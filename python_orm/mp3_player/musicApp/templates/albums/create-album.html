@@ -1,24 +1,21 @@
-<!--Create Page-->
-<section class="createPage">
+{% extends 'common/base.html' %}
+{% block content %}
 
-    <form>
-        <fieldset>
-            <legend>Add Album</legend>
-            <div class="container">
+    <!--Create Page-->
+    <section class="createPage">
 
-                <!-- Form for Adding Album -->
-                <label for="name">Album Name:</label>
-                <input id="name" type="text" required>
+        <form method="POST" action="{% url 'create album' %}">
+            <fieldset>
+                <legend>Add Album</legend>
+                <div class="container">
 
-                <label for="imgUrl">Image URL:</label>
-                <input id="imgUrl" type="url" required>
+                    {{ form }}
+                    {% csrf_token %}
+                    <button class="add-album" type="submit">Add New Album</button>
 
-                <label for="price">Price:</label>
-                <input id="price" type="number" required>
+                </div>
+            </fieldset>
+        </form>
+    </section>
 
-                <!-- Button for Adding Album -->
-                <button class="add-album" type="submit">Add New Album</button>
-            </div>
-        </fieldset>
-    </form>
-</section>
+{% endblock %}
