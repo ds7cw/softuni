@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Fruit
 
 # Create your views here.
 def index(request):
@@ -14,7 +15,10 @@ def create_fruit(request):
 
 
 def details_fruit(request, fruit_id):
-    return render(request, 'fruits\details-fruit.html')
+    fruit = Fruit.objects.get(pk=fruit_id)
+    # fruit = get_object_or_404(Fruit, pk=fruit_id)
+    context = {'fruit': fruit}
+    return render(request, 'fruits\details-fruit.html', context=context)
 
 
 def edit_fruit(request, fruit_id):
