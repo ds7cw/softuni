@@ -1,5 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Fruit
+
+from .forms import CategoryCreateForm, FruitCreateForm
+
 
 # Create your views here.
 def index(request):
@@ -11,7 +14,17 @@ def dashboard(request):
 
 
 def create_fruit(request):
-    return render(request, 'fruits\create-fruit.html')
+    if request.method == 'GET':
+        form = FruitCreateForm()
+    else:
+        form = FruitCreateForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+        
+    context = {'form': form}
+    return render(request, 'fruits\create-fruit.html', context)
 
 
 def details_fruit(request, fruit_id):
@@ -30,4 +43,14 @@ def delete_fruit(request, fruit_id):
 
 
 def create_category(request):
-    return render(request, 'categories\create-category.html')
+    if request.method == 'GET':
+        form = CategoryCreateForm()
+    else:
+        form = CategoryCreateForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+        
+    context = {'form': form}
+    return render(request, 'categories\create-category.html', context)
