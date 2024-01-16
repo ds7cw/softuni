@@ -10,7 +10,10 @@ def index(request):
 
 
 def dashboard(request):
-    return render(request, 'common\dashboard.html')
+    fruits = Fruit.objects.all()
+    context = {'fruits': fruits}
+
+    return render(request, 'common\dashboard.html', context)
 
 
 def create_fruit(request):
