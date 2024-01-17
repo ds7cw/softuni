@@ -38,7 +38,19 @@ def details_fruit(request, fruit_id):
 
 
 def edit_fruit(request, fruit_id):
-    return render(request, 'fruits\edit-fruit.html')
+    fruit = Fruit.objects.get(pk=fruit_id)
+
+    if request.method == 'GET':
+        form = FruitCreateForm(instance=fruit)
+    else:
+        form = FruitCreateForm(request.POST, instance=fruit)
+
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+        
+    context = {'fruit': fruit, 'form': form}
+    return render(request, 'fruits\edit-fruit.html', context)
 
 
 def delete_fruit(request, fruit_id):

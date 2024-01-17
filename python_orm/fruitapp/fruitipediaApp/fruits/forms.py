@@ -23,3 +23,5 @@ class FruitBaseForm(forms.ModelForm):
 
 class FruitCreateForm(FruitBaseForm):
     pass
+
+# class FruitEditForm(forms)
