@@ -54,7 +54,23 @@ def edit_fruit(request, fruit_id):
 
 
 def delete_fruit(request, fruit_id):
-    return render(request, 'fruits\delete-fruit.html')
+    fruit = Fruit.objects.get(pk=fruit_id)
+
+    if request.method == 'GET':
+        form = FruitCreateForm(instance=fruit)
+    else:
+        form = FruitCreateForm(request.POST, instance=fruit)
+
+        if form.is_valid():
+            fruit.delete()
+            return redirect('dashboard')
+
+    context = {
+        'form': form,
+        'fruit': fruit
+    }
+
+    return render(request, 'fruits\delete-fruit.html', context)
 
 
 def create_category(request):
