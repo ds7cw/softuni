@@ -1,0 +1,42 @@
+html {
+    font-family: Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, serif;
+}
+
+blockquote {
+    border-left: solid 5px rgb(221,221,221);
+    padding: 20px;
+    font-style: italic;
+}
+
+p.author {
+    text-align: end;
+}
+
+table {
+    margin-left: 45px;
+    width: 80%;
+    text-align: left;
+}
+
+th, td {
+    border: solid 1px lightgray;
+    border-radius: 3px;
+    padding: 1px 5px;
+}
+
+th {
+    background-color: lightgrey;
+}
+
+tbody tr:nth-of-type(odd) {
+    background-color: beige;
+}
