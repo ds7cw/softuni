@@ -1,0 +1,45 @@
+p {
+  font-weight: bold;
+  background-color: coral;
+  border: 1px solid black;
+  padding: 30px 40px 50px 20px;
+}
+
+body {
+  padding: 2em;
+}
+
+span {
+  font-weight: bold;
+  background-color: coral;
+}
+
+div {
+  padding: 2em;
+  border: dashed 1px darkolivegreen;
+  /* max-width: 300px; */
+}
+
+.marg {
+  background-color: orangered;
+}
+
+.border {
+  background-color: lightgoldenrodyellow;
+}
+
+.padding {
+  background-color: lightgreen;
+}
+
+.content {
+  background-color: lightsteelblue;
+}
+
+.box {
+  border: 2px solid black;
+  margin: 2em auto;
+  line-height: 1;
+  padding: 2em;
+  max-width: 600px;
+}
