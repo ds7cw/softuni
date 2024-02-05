@@ -1,0 +1,40 @@
+main {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgb(0, 0, 0, 0.5);
+}
+
+div {
+    width: 280px;
+    display: inline-block;
+    color: #fff;
+    background-color: #0A2C48;
+    padding: 16px 16px 16px 32px;
+    margin-top: 20px;
+    margin: 0.5em;
+    border-radius: 4px;
+}
+
+div:hover {
+    background-color: #2A4C68;
+}
+
+p {
+    color: #c9d6ff;
+    font-size: 18px;
+}
+/* <main>
+<div class="left">
+    <h3>Step 1</h3>
+    <p>Choose a website building platform</p>
+</div>
+<div class="center">
+    <h3>Step 2</h3>
+    <p>Choose a domain and host</p>
+</div>
+<div class="right">
+    <h3>Step 3</h3>
+    <p>Set up, design and tweak your website</p>
+</div>
+</main> */
