@@ -32,7 +32,6 @@ class Album(models.Model):
     
     genre = models.CharField(
         max_length=30,
-        unique=True,
         null=False,
         blank=False,
         choices=GENRE_CHOICES,

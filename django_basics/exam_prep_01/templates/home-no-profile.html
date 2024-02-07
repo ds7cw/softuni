@@ -1,30 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>My Music App</title>
-    <!-- Static Load -->
-    <link rel="stylesheet" href="/static/css/style.css" />
-  </head>
+{% extends 'base.html' %}
+{% load static %}
 
-  <body>
-    <div id="box">
-      <!-- Navigation Bar -->
-      <header>
-        <nav>
-          <img src="/static/images/headphones.png" alt="headphones" />
-          <a href="#">Home</a>
-          <ul></ul>
-          <ul>
-            <!--Only for user with created profile-->
-            <li><a href="#">Create Album</a></li>
-            <li><a href="#">Profile</a></li>
-          </ul>
-        </nav>
-      </header>
+
+    <!-- Static Load -->
+    {% block static_ref %}
+      <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% endblock %}
       <!-- End Navigation Bar -->
 
       <!-- Main Content -->
+    {% block main_content %}
       <!--Home Page-->
       <div class="container-inline">
         <section id="welcomePage">
@@ -39,11 +24,13 @@
 
         <!-- Registration -->
         <section id="registerPage">
-          <form>
+          <form action="{% url 'home' %}" method="post">
+            {% csrf_token %}
             <fieldset>
               <legend>Profile</legend>
+                {{ add_profile_form }}
               <!-- Form for Registration -->
-              <label for="username">Username:</label>
+              <!-- <label for="username">Username:</label>
               <input
                 id="username"
                 name="username"
@@ -61,18 +48,13 @@
                 type="number"
                 min="0"
                 placeholder="Age"
-              />
+              /> -->
               <!-- Button to Create Profile -->
               <button type="submit" class="register">Enter</button>
             </fieldset>
           </form>
         </section>
       </div>
+    {% endblock %}
       <!-- Footer -->
-      <footer>
-        <div>&copy;SoftUni Team 2024. All rights reserved.</div>
-      </footer>
-      <!-- End Footer -->
-    </div>
-  </body>
-</html>
+
