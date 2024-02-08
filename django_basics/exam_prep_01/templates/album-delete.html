@@ -1,30 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>My Music App</title>
-    <!-- Static Load -->
-    <link rel="stylesheet" href="/static/css/style.css" />
-  </head>
+{% extends 'base.html' %}
+{% load static %}
 
-  <body>
-    <div id="box">
+
+<!-- Static Load -->
+{% block static_ref %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+{% endblock %}
+
       <!-- Navigation Bar -->
-      <header>
-        <nav>
-          <img src="/static/images/headphones.png" alt="headphones" />
-          <a href="#">Home</a>
-          <ul></ul>
-          <ul>
-            <!--Only for user with created profile-->
-            <li><a href="#">Create Album</a></li>
-            <li><a href="#">Profile</a></li>
-          </ul>
-        </nav>
-      </header>
       <!-- End Navigation Bar -->
 
       <!-- Main Content -->
+{% block main_content %}
 
       <!--Delete Page-->
       <section class="editPage">
@@ -101,12 +88,6 @@ Upon release, In These Silent Days received positive reviews from critics. At Me
           </fieldset>
         </form>
       </section>
-
+{% endblock %}
       <!-- Footer -->
-      <footer>
-        <div>&copy;SoftUni Team 2024. All rights reserved.</div>
-      </footer>
       <!-- End Footer -->
-    </div>
-  </body>
-</html>

@@ -50,3 +50,6 @@ class Album(models.Model):
     )
     
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.album_name

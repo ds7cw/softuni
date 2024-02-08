@@ -1,38 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>My Music App</title>
-    <!-- Static Load -->
-    <link rel="stylesheet" href="/static/css/style.css" />
-  </head>
+{% extends 'base.html' %}
+{% load static %}
 
-  <body>
-    <div id="box">
+
+<!-- Static Load -->
+{% block static_ref %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+{% endblock %}
+
       <!-- Navigation Bar -->
-      <header>
-        <nav>
-          <img src="/static/images/headphones.png" alt="headphones" />
-          <a href="#">Home</a>
-          <ul></ul>
-          <ul>
-            <!--Only for user with created profile-->
-            <li><a href="#">Create Album</a></li>
-            <li><a href="#">Profile</a></li>
-          </ul>
-        </nav>
-      </header>
       <!-- End Navigation Bar -->
 
       <!-- Main Content -->
+{% block main_content %}
       <!--Edit Page-->
       <section class="editPage">
-        <form>
+        <form method="post" action="{% url 'album-edit' id=album.id %}">
+          {% csrf_token %}
           <fieldset>
             <legend>Edit Album</legend>
             <div class="container">
+              {{ edit_album_form }}
               <!-- Form for Editing Album -->
-              <label for="name">Album Name:</label>
+              <!-- <label for="name">Album Name:</label>
               <input
                 id="name"
                 name="name"
@@ -86,7 +75,7 @@ Upon release, In These Silent Days received positive reviews from critics. At Me
                 class="price"
                 type="text"
                 value="12.8"
-              />
+              /> -->
 
               <!-- Button for Editing Album -->
               <button class="edit-album" type="submit">Edit Album</button>
@@ -94,12 +83,7 @@ Upon release, In These Silent Days received positive reviews from critics. At Me
           </fieldset>
         </form>
       </section>
-
+{% endblock %}
       <!-- Footer -->
-      <footer>
-        <div>&copy;SoftUni Team 2024. All rights reserved.</div>
-      </footer>
       <!-- End Footer -->
-    </div>
-  </body>
-</html>
+

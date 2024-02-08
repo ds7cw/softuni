@@ -43,10 +43,20 @@ def home(request):
 
 
 def profile_details(request):
-    
-    return render(request, 'profile-details.html')
+    profile = Profile.objects.first()
+    albums_count = Album.objects.filter(owner=profile).count()
+    context = {'profile': profile, 'albums_count': albums_count}
+
+    return render(request, 'profile-details.html', context=context)
 
 
 def profile_delete(request):
+    profile = Profile.objects.first()
+    context = {'profile': profile}
     
-    return render(request, 'profile-delete.html')
+    if request.method == 'POST':
+        if profile:
+            profile.delete()
+            return redirect('home')
+
+    return render(request, 'profile-delete.html', context=context)

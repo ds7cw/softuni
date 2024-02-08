@@ -1,38 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>My Music App</title>
-    <!-- Static Load -->
-    <link rel="stylesheet" href="/static/css/style.css" />
-  </head>
+{% extends 'base.html' %}
+{% load static %}
 
-  <body>
-    <div id="box">
-      <!-- Navigation Bar -->
-      <header>
-        <nav>
-          <img src="/static/images/headphones.png" alt="headphones" />
-          <a href="#">Home</a>
-          <ul></ul>
-          <ul>
-            <!--Only for user with created profile-->
-            <li><a href="#">Create Album</a></li>
-            <li><a href="#">Profile</a></li>
-          </ul>
-        </nav>
-      </header>
-      <!-- End Navigation Bar -->
+    <!-- Static Load -->
+{% block static_ref %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% endblock %}
+    <!-- Navigation Bar -->
+    <!-- End Navigation Bar -->
 
       <!-- Main Content -->
+{% block main_content %}
       <!--Create Page-->
       <section class="createPage">
-        <form>
+        <form action="{% url 'album-add' %}" method="post">
+          {% csrf_token %}
           <fieldset>
             <legend>Add Album</legend>
             <div class="container">
               <!-- Form for Adding Album -->
-              <label for="name">Album Name:</label>
+              {{ add_album_form }}
+              <!-- <label for="name">Album Name:</label>
               <input id="name" type="text" placeholder="Album Name" required />
 
               <label for="artist">Artist:</label>
@@ -58,7 +45,7 @@
               <input id="imgUrl" type="url" placeholder="Image URL" required />
 
               <label for="price">Price:</label>
-              <input id="price" type="number" placeholder="Price" required />
+              <input id="price" type="number" placeholder="Price" required /> -->
 
               <!-- Button for Adding Album -->
               <button class="add-album" type="submit">Add New Album</button>
@@ -66,11 +53,7 @@
           </fieldset>
         </form>
       </section>
+
+{% endblock %}
       <!-- Footer -->
-      <footer>
-        <div>&copy;SoftUni Team 2024. All rights reserved.</div>
-      </footer>
       <!-- End Footer -->
-    </div>
-  </body>
-</html>
