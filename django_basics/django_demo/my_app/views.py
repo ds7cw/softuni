@@ -3,11 +3,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from .models import Player
+from .forms import PlayerModelForm
 
 
 # Create your views here.
 def home(request):
-    return render(request, 'main/home.html')
+    players = Player.objects.all()
+    context = {'players': players}
+    return render(request, 'main/home.html', context)
 
 
 def signup(request):
@@ -74,3 +78,16 @@ def signout(request):
     logout(request)
     messages.success(request, 'Logged out successfully!')
     return redirect('home')
+
+
+def player_create(request):
+    form = PlayerModelForm()
+    context = {'form': form}
+
+    if request.method == 'POST':
+        form = PlayerModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    return render(request, 'players/player-create.html', context) 

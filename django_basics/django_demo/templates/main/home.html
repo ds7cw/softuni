@@ -41,6 +41,13 @@
         {% endif %}
     </div>
     
+    <div>
+        {% for player in players %}
+            <p>{{ player }} - Points Per Game: {{ player.ppg|floatformat:1 }}</p>
+        {% empty %}
+            <p>Sorry, no athletes in this list.</p>
+        {% endfor %}
+    </div>
 
 </body>
 </html>

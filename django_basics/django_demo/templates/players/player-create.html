@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Creation</title>
+    <style>
+        main {
+            border: solid 1px black;
+            width: 35%;
+            margin: 50px auto;
+            border-radius: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 100px;
+        }
+
+        form {
+            width: 70%;
+            margin: 20px auto;
+            position: relative;
+            /* border: 1px solid blueviolet; */
+        }
+
+        form select, input {
+            width: 150px;
+        }
+
+        form label {
+            font-weight: bold;
+            color: darkgoldenrod;
+        }
+
+        form input, select {
+            position: absolute;
+            right: 0px;
+        }
+
+        form button {
+            color: white;
+            font-size: 1em;
+            font-weight: bold;
+            background-color: darkgoldenrod;
+            width: 50%;
+            margin: 50px auto 10px auto;
+            position: relative;
+            left: 25%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <main> 
+        <h1>Player Creation:</h1>
+
+        <form action="{% url 'player-create' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit">Create Player</button>
+        </form>
+    </main>    
+</body>
+</html>
