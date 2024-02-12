@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Player Creation</title>
+    <title>Edit Player</title>
     <style>
         main {
             border: solid 1px black;
@@ -60,11 +60,11 @@
     <main> 
         <h1>Player Creation:</h1>
 
-        <form action="{% url 'player-create' %}" method="post">
+        <form action="{% url 'player-edit' pk=player.id %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
 
-            <button type="submit">Create Player</button>
+            <button type="submit">Save Changes</button>
         </form>
     </main>    
 </body>

@@ -26,6 +26,10 @@
             <button type="submit">
                 <a href="{% url 'signout' %}">SignOut</a>
             </button>
+
+            <button type="submit">
+                <a href="{% url 'player-create' %}">Create Player</a>
+            </button>
         {% else %}
             <div>
                 <div class="row">
@@ -43,7 +47,7 @@
     
     <div>
         {% for player in players %}
-            <p>{{ player }} - Points Per Game: {{ player.ppg|floatformat:1 }}</p>
+            <p><a href="{% url 'player-details' pk=player.id %}">{{ player }}</a> - Points Per Game: {{ player.ppg|floatformat:1 }}</p>
         {% empty %}
             <p>Sorry, no athletes in this list.</p>
         {% endfor %}

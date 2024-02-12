@@ -6,5 +6,12 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('signin/', views.signin, name='signin'),
     path('signout/', views.signout, name='signout'),
-    path('player/create/', views.player_create, name='player-create'),
+    path('player/', include(
+        [
+            path('create/', views.player_create, name='player-create'),
+            path('<int:pk>/details/', views.player_details, name='player-details'),
+            path('<int:pk>/edit/', views.player_edit, name='player-edit'),
+            path('<int:pk>/delete/', views.player_delete, name='player-delete'),
+        ]
+    )),
 ]

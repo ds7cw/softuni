@@ -60,11 +60,11 @@
     <main> 
         <h1>Player Creation:</h1>
 
-        <form action="{% url 'player-create' %}" method="post">
+        <form action="{% url 'player-delete' pk=player.id %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
 
-            <button type="submit">Create Player</button>
+            <button type="submit">Delete Player</button>
         </form>
     </main>    
 </body>

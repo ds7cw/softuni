@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import Player
-from .forms import PlayerModelForm
+from .forms import PlayerModelForm, DeletePlayerModelForm
 
 
 # Create your views here.
@@ -91,3 +91,39 @@ def player_create(request):
             return redirect('home')
 
     return render(request, 'players/player-create.html', context) 
+
+
+def player_details(request, pk):
+    player = Player.objects.get(pk=pk)
+    context = {'player': player}
+    return render(request, 'players/player-details.html', context)
+
+
+def player_edit(request, pk):
+    player = Player.objects.get(pk=pk)
+    form = PlayerModelForm(instance=player)
+    
+    if request.method == 'POST':
+        form = PlayerModelForm(request.POST, instance=player)
+        
+        if form.is_valid():
+            form.save()
+
+            return redirect('player-details', pk=player.id)
+    
+    context = {'player': player, 'form': form}
+    return render(request, 'players/player-edit.html', context)
+
+
+def player_delete(request, pk):
+    player = Player.objects.get(pk=pk)
+    form = DeletePlayerModelForm(instance=player)
+    
+    if request.method == 'POST':
+            print(request.POST)
+            print(player)
+            player.delete()
+            return redirect('home')
+    
+    context = {'player': player, 'form': form}
+    return render(request, 'players/player-delete.html', context)
