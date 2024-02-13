@@ -12,6 +12,7 @@ urlpatterns = [
             path('<int:pk>/details/', views.player_details, name='player-details'),
             path('<int:pk>/edit/', views.player_edit, name='player-edit'),
             path('<int:pk>/delete/', views.player_delete, name='player-delete'),
+            path('table/', views.PlayersTableView.as_view(), name='player-table'),
         ]
     )),
 ]

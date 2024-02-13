@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Table</title>
+    <style>
+        table {
+            margin: 25px auto;
+        }
+        
+        table, th, td {
+            border: 1px solid;
+        }
+
+        th, td {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        th {
+            background-color: rgb(94, 94, 94);
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {background-color: #f2f2f2;}
+
+        tr:hover {
+            background-color: darkgoldenrod;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    {% if players %}
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        DOB
+                    </th>
+                    <th>
+                        Team
+                    </th>
+                    <th>
+                        Pos
+                    </th>
+                    <th>
+                        PPG
+                    </th>
+                    <th>
+                        RPG
+                    </th>
+                    <th>
+                        APG
+                    </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for player in players %}
+                    <tr>
+                        <td>
+                            {{ player }}
+                        </td>
+                        <td>
+                            {{ player.dob }}
+                        </td>
+                        <td>
+                            {{ player.team }}
+                        </td>
+                        <td>
+                            {{ player.position }}
+                        </td>
+                        <td>
+                            {{ player.ppg|floatformat:1 }}
+                        </td>
+                        <td>
+                            {{ player.rpg|floatformat:1 }}
+                        </td>
+                        <td>
+                            {{ player.apg|floatformat:1 }}
+                        </td>
+                    </tr>
+
+                
+
+      
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Player Database is empty.</p>
+    {% endif %}
+    
+</body>
+</html>

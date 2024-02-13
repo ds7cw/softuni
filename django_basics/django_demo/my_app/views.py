@@ -1,3 +1,4 @@
+from typing import Any
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -5,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import Player
 from .forms import PlayerModelForm, DeletePlayerModelForm
+from django.views.generic.base import TemplateView
 
 
 # Create your views here.
@@ -127,3 +129,13 @@ def player_delete(request, pk):
     
     context = {'player': player, 'form': form}
     return render(request, 'players/player-delete.html', context)
+
+
+class PlayersTableView(TemplateView):
+
+    template_name = 'players/player-table.html'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['players'] = Player.objects.all()
+        return context
