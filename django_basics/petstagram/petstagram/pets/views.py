@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from .models import Pet
+
 
 # Create your views here.
 def pet_create(request):
@@ -8,7 +10,9 @@ def pet_create(request):
 
 
 def pet_details(request, username, pet_slug):
-    context = {}
+    context = {
+        'pet': Pet.objects.get(slug=pet_slug),
+    }
 
     return render(request, 'pets/pet-details-page.html', context)
 
