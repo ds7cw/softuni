@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from .models import Photo
+
 
 # Create your views here.
 def add_photo(request):
@@ -8,7 +10,9 @@ def add_photo(request):
 
 
 def details_photo(request, pk):
-    context = {}
+    context = {
+        'pet_photo': Photo.objects.get(pk=pk),
+    }
 
     return render(request, 'photos/photo-details-page.html', context)
 
