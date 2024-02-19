@@ -18,6 +18,7 @@
 
                     <!-- Start Comments Section -->
                     <div class="comments">
+                        {% for comment in pet_photo.photocomment_set.all %}
                         <div class="top">
                             <div class="userDetails">
                                 <div class="comment-data">
@@ -34,33 +35,35 @@
                                         <!-- User First and/or Last Name or username-->
                                         <a href="{% url 'profile-details' pk=1 %}">>Steven Ivanov</a>
                                         <!-- User Comment -->
-                                        - OMG where can i get one
+                                        - {{ comment.text }}
                                     </p>
                                 </div>
-                                <span>Sept. 20, 2022, 5:02 p.m.</span>
+                                <span>{{ date_time_of_publication}}</span>
+                                <!-- <span>Sept. 20, 2022, 5:02 p.m.</span> -->
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                     <!-- End Comments Section -->
-                </div>
+                <!-- </div> -->
 
                 <!-- Start Add Comments Section -->
-                <div class="addComments">
+                <!-- <div class="addComments"> -->
 
                     <!-- Start Add Comments Form -->
-                    <form method="post" action="#">
-                        <label for="id_body">Body:</label>
-                        <textarea name="body" cols="40" rows="10" placeholder="Add comment..." maxlength="300"
-                                  required="" id="id_body"></textarea>
+                    <!-- <form method="post" action="#"> -->
+                        <!-- <label for="id_body">Body:</label> -->
+                        <!-- <textarea name="body" cols="40" rows="10" placeholder="Addf comment..." maxlength="300" -->
+                                  <!-- required="" id="id_body"></textarea> -->
                         <!-- Post Comments Button -->
-                        <button type="submit">Post</button>
-                    </form>
+                        <!-- <button type="submit">Post</button> -->
+                    <!-- </form> -->
                     <!-- End Add Comments Form -->
 
-                </div>
+                <!-- </div> -->
                 <!-- End Add Comments Section -->
 
-            </div>
+            <!-- </div> -->
             <!-- End Pet Photo Post Section -->
 
         </div>
