@@ -29,7 +29,8 @@ def pet_edit(request, username, pet_slug):
     pet = Pet.objects.filter(slug=pet_slug).first()
     pet_form = PetEditForm(instance=pet,)
     context = {'pet_edit_form': pet_form, 'username': username, 'pet': pet}
-
+    print(f'--GET-- {request.GET}')
+    print(f'\n--POST-- {request.POST}')
     if request.method == 'POST':
         pet_form = PetEditForm(request.POST, instance=pet)
         if pet_form.is_valid():
