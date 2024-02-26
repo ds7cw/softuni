@@ -7,7 +7,7 @@
         <!-- Start Edit Pet From -->
         <form action="{% url 'edit-pet' username=username pet_slug=pet.slug %}" method="post">
             {% csrf_token %}
-            {{ pet_edit_form.as_p }}
+            {{ form.as_p }}
 
             <!-- Edit Pet Button -->
             <button class="edit-btn" type="submit">Edit</button>
