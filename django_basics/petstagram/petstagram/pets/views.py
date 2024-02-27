@@ -1,3 +1,4 @@
+from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
@@ -95,40 +96,36 @@ class PetEditView(generic.UpdateView):
         }) 
 
 
-def pet_delete(request, username, pet_slug):
-    pet = Pet.objects.filter(slug=pet_slug).first()
-    pet_form = PetDeleteForm(instance=pet)
-    context = {'pet_delete_form': pet_form, 'username':username, 'pet':pet}
+# def pet_delete(request, username, pet_slug):
+#     pet = Pet.objects.filter(slug=pet_slug).first()
+#     pet_form = PetDeleteForm(instance=pet)
+#     context = {'pet_delete_form': pet_form, 'username':username, 'pet':pet}
 
-    if request.method == 'POST':
-        # print(f'{pet} deleted!!!! {pet.slug}')
-        pet.delete()
-        return redirect('home-page')
+#     if request.method == 'POST':
+#         # print(f'{pet} deleted!!!! {pet.slug}')
+#         pet.delete()
+#         return redirect('home-page')
 
-    return render(request, 'pets/pet-delete-page.html', context)
+#     return render(request, 'pets/pet-delete-page.html', context)
 
 
 class PetDeleteView(generic.DeleteView):
 
     model = Pet
-    form_class = PetDeleteForm
-    context_object_name = 'pet'
-    extra_context = {'username': 'ddd'}
-    
     template_name = 'pets/pet-delete-page.html'
+    context_object_name = 'pet'
     success_url = reverse_lazy('home-page')
-    slug_url_kwarg = 'pet_slug'
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.object
-
-        return kwargs
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     form = PetDeleteForm(instance=self.object)
-    #     context['form'] = form
-    #     context['username'] = 'ddd'
-        
-    #     return context
+    def get_object(self, queryset=None):
+        return Pet.objects.get(slug=self.kwargs['pet_slug'])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = PetDeleteForm(initial=self.object.__dict__)
+        context['username'] = 'ddd'
+        return context
+    
+    def delete(self, request, *args, **kwargs):
+        pet = self.get_object()
+        pet.delete()
+        return redirect(self.success_url)
