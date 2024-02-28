@@ -46,11 +46,18 @@ class HomeView(generic.ListView):
     def filter_by_pet_name_pattern(self, queryset):
         pet_name_pattern = self.pet_name_pattern
 
+        if pet_name_pattern:
+            self.request.session['pet_name_pattern'] = pet_name_pattern
+        else:
+            self.request.session.pop('pet_name_pattern', None)
+
+        pet_name_session = self.request.session.get('pet_name_pattern')
+
         filter_query = {}
 
         if pet_name_pattern:
-            filter_query['tagged_pets__name__icontains'] = pet_name_pattern
-
+            # filter_query['tagged_pets__name__icontains'] = pet_name_pattern
+            filter_query['tagged_pets__name__icontains'] = pet_name_session
         return queryset.filter(**filter_query)
  
 
